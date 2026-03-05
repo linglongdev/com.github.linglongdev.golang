@@ -1,0 +1,25 @@
+version: "1"
+package:
+  id: com.github.linglongdev.golang
+  name: golang
+  version: 1.26.0.0
+  kind: app
+  description: |
+    用于linglongdev构建时拉取依赖
+
+base: org.deepin.base/25.2.1
+
+command:
+  - node
+
+build: |
+  cd $PREFIX
+  tar --strip-components=1 --no-same-owner -xvf /project/linglong/sources/go.tar.gz
+  # 影响ldd check
+  rm -r src/debug/elf/testdata/gcc-riscv64-linux-exec
+
+sources:
+  - kind: file
+    url: https://mirrors.aliyun.com/golang/go1.26.0.linux-amd64.tar.gz
+    name: go.tar.gz
+    digest: aac1b08a0fb0c4e0a7c1555beb7b59180b05dfc5a3d62e40e9de90cd42f88235
